@@ -131,7 +131,7 @@ public class MyCoords implements coords_converter {
 //		double left = Math.sin(delta)*Math.cos(latgps1);
 //		double right = Math.cos(latgps0)*Math.sin(latgps1)-Math.sin(latgps0)*Math.cos(latgps1)*Math.cos(delta);
 //		double	azimut = Math.atan2(left, right);
-			Point3D vec =vector3D(gps0, gps1);
+		Point3D vec =vector3D(gps0, gps1);
 		double azimut=Math.toDegrees(Math.atan(Math.abs(vec.x()/vec.y())));
 		if (vec.y()<0) {
 			if (vec.x()>0) {

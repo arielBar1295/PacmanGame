@@ -32,7 +32,8 @@ public class moveThread extends Thread{
 		play.setIDs(307967992,313383259);
 		play.start();
 		double [] e=new double[3];
-		while((getTimeLeft(this.play.getStatistics())>0)&&(game.getFruit().size()>0)) {
+		while((getTimeLeft(this.play.getStatistics())>0)&&(game.getFruit().size()>0))
+		{
 			if(counter+1==image.counterAzimut) {
 				Point3D p=image.getPointclicked();
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),p);
@@ -54,6 +55,7 @@ public class moveThread extends Thread{
 			}
 			System.out.println(play.getStatistics());
 		}
+	
 	}
 	private double getTimeLeft(String s) {
 
