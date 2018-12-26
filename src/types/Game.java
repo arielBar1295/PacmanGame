@@ -21,7 +21,7 @@ public class Game {
 		this.ghost=new ArrayList<Ghost>();
 		this.fruit= new ArrayList<Fruit>();
 		this.playerP=new Packman();
-		init();
+		init(play1.getBoard());
 	}
 	public Packman getPlayerP() {
 		return playerP;
@@ -29,8 +29,8 @@ public class Game {
 	public void setPlayerP(Packman playerP) {
 		this.playerP = playerP;
 	}
-	private void init() {
-		ArrayList<String> board_data= play1.getBoard();
+	private void init(ArrayList<String> board_data) {
+
 		for(int i=0;i<board_data.size();i++) {
 			String[] s=board_data.get(i).split(",");
 			if(s[0].equals("M")){
@@ -110,5 +110,12 @@ public class Game {
 	}
 	public void setGhost(ArrayList<Ghost> ghost) {
 		this.ghost = ghost;
+	}
+	public void update(Play _play1) {
+		packman.removeAll(packman);
+		fruit.removeAll(fruit);
+		box.removeAll(box);
+		ghost.removeAll(ghost);
+		init(_play1.getBoard());
 	}
 }

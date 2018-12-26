@@ -123,19 +123,31 @@ public class MyCoords implements coords_converter {
 			return null;
 		else {
 		//**azimut***//
-		double longps0 = Math.toRadians(gps0.y()); 
-		double longps1 = Math.toRadians(gps1.y()); 
-		double latgps0 = Math.toRadians(gps0.x()); 
-		double latgps1 = Math.toRadians(gps1.x()); 
-		double delta = longps1 - longps0;
-		double left = Math.sin(delta)*Math.cos(latgps1);
-		double right = Math.cos(latgps0)*Math.sin(latgps1)-Math.sin(latgps0)*Math.cos(latgps1)*Math.cos(delta);
-		double	azimut = Math.atan2(left, right);
+//		double longps0 = Math.toRadians(gps0.y()); 
+//		double longps1 = Math.toRadians(gps1.y()); 
+//		double latgps0 = Math.toRadians(gps0.x()); 
+//		double latgps1 = Math.toRadians(gps1.x()); 
+//		double delta = longps1 - longps0;
+//		double left = Math.sin(delta)*Math.cos(latgps1);
+//		double right = Math.cos(latgps0)*Math.sin(latgps1)-Math.sin(latgps0)*Math.cos(latgps1)*Math.cos(delta);
+//		double	azimut = Math.atan2(left, right);
+			Point3D vec =vector3D(gps0, gps1);
+		double azimut=Math.toDegrees(Math.atan(Math.abs(vec.x()/vec.y())));
+		if (vec.y()<0) {
+			if (vec.x()>0) {
+				azimut=180-azimut;
+			}else
+				azimut=180+azimut;
+		}else {
+			if(vec.x()<0) {
+				azimut=360-azimut;
+			}
+		}
 		//***distance***//
 		double distance = distance3d(gps0,gps1);
 		//***elevation***//
-		azimut = Math.toDegrees(azimut);
-		if(azimut<0) azimut+=360;
+//		azimut = Math.toDegrees(azimut);
+//		if(azimut<0) azimut+=360;
 		double high = gps1.z() - gps0.z();
 		double eleveation = Math.toDegrees(Math.asin(high/distance));
 	

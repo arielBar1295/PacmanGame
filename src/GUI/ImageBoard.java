@@ -28,11 +28,16 @@ public class ImageBoard extends JPanel implements MouseListener {
 	private boolean flag=false;
 	private String player="";
 	ArrayList<String> board_data;
-	private boolean flag2=false;
-	private boolean flag3=false;
+	private boolean playerPrint=false;
+	public boolean flag3=false;
 	private Point3D pointclicked;
 	private MyCoords m;
-	public int x=0;
+	public int autoFlag=0;
+	private moveThread m1=null;
+	public int counterAzimut=0;
+
+
+	public boolean threadFlag=false;
 
 	public ImageBoard() {
 		try {
@@ -50,7 +55,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 		int h = this.getHeight();
 		g.drawImage(myImage, 0, 0, w, h, this);	
 		if (this.flag) {
-		
+
 			for(int i=0;i<game.getPackman().size();i++) {
 				int r = 20;
 				Point3D pX=c.conToPix(game.getPackman().get(i).getP(), this.getWidth(), this.getHeight());
@@ -88,16 +93,16 @@ public class ImageBoard extends JPanel implements MouseListener {
 				Color co = new Color(0.0f, 0.3f, 1.0f);	
 				g.setColor(co.black);
 				g.fillRect(p.ix(), p1.iy(), wq,hq);
-				//g.drawRect(p.ix(), p.iy(), p1.ix()-p.ix(),p1.iy()-p.iy());
+
 			}
-			if(flag2) {
-			int r = 35;
-    		Point3D pX=c.conToPix(game.getPlayerP().getP(), this.getWidth(), this.getHeight());
-			double x =pX.x() - (r / 2);
-			double y = pX.y() - (r / 2);
-			Color co = new Color(0.0f, 0.3f, 1.0f);	
-			g.setColor(co.blue);
-			g.fillOval((int)x, (int)y, r, r);
+			if(playerPrint) {
+				int r = 35;
+				Point3D pX=c.conToPix(game.getPlayerP().getP(), this.getWidth(), this.getHeight());
+				double x =pX.x() - (r / 2);
+				double y = pX.y() - (r / 2);
+				Color co = new Color(0.0f, 0.3f, 1.0f);	
+				g.setColor(co.blue);
+				g.fillOval((int)x, (int)y, r, r);
 			}
 		}
 	}
@@ -109,15 +114,13 @@ public class ImageBoard extends JPanel implements MouseListener {
 
 	}
 	public void runStep() {
-	
-		if(flag3) {
+		play1.setInitLocation(game.getPlayerP().getP().y(),game.getPlayerP().getP().x());
+		play1.setIDs(307967992,313383259);
 		play1.start();
 		double [] e=m.azimuth_elevation_dist(game.getPlayerP().getP(),pointclicked);
 		play1.rotate(e[0]);
-		System.out.println(e[0]);
-		game=new Game(play1);
+		game.update(play1);
 		repaint();
-		}
 	}
 
 	@Override
@@ -125,28 +128,33 @@ public class ImageBoard extends JPanel implements MouseListener {
 		int x = e.getX();
 		int y = e.getY();
 		Point3D p=new Point3D(x,y);
+		this.pointclicked=c.pixToCo(p, this.getWidth(), this.getHeight());
+		counterAzimut++;
 		if (this.player.equals("player")) {
-			Point3D pX=c.pixToCo(p, this.getWidth(), this.getHeight());
-			this.play1.setInitLocation(pX.x(), pX.y());
+			Point3D pointPlayer=c.pixToCo(p, this.getWidth(), this.getHeight());
+			this.play1.setInitLocation(pointPlayer.x(), pointPlayer.y());
 			this.board_data=this.play1.getBoard();
 			String [] s=this.board_data.get(0).split(",");
-			this.game.getPlayerP().setP(pX);
+			this.game.getPlayerP().setP(pointPlayer);
 			this.game.getPlayerP().setId(Integer.parseInt(s[1]));
 			this.game.getPlayerP().setSpeed(Double.parseDouble(s[5]));
 			this.game.getPlayerP().setRadius(Double.parseDouble(s[6]));
-			flag2=true;
+			playerPrint=true;
+			this.setPlayer(" ");
 			repaint();
 		}
-		this.player=""; //so the user can set the packman player on the board  only one time.
-		System.out.println(this.player.equals("steps"));
-		//if (this.player.equals("steps"))
-		if (x!=0)
-		{
-			System.out.println("a");
-			this.pointclicked=c.pixToCo(p, this.getWidth(), this.getHeight());
-			System.out.println(pointclicked);
-			flag3=true;
-			
+		//step by step
+		if (autoFlag==1)
+		{  
+			this.runStep();
+		}
+		//auto run
+		if(autoFlag==2) {
+           //for creating only 1 thread.
+			if(threadFlag) {
+				m1=new moveThread(this,game,play1,e);
+				m1.start();
+			}
 		}
 	}
 	@Override
@@ -180,5 +188,11 @@ public class ImageBoard extends JPanel implements MouseListener {
 	}
 	public void update() {
 		repaint();
+	}
+	public Point3D getPointclicked() {
+		return pointclicked;
+	}
+	public void setPointclicked(Point3D pointclicked) {
+		this.pointclicked = pointclicked;
 	}
 }

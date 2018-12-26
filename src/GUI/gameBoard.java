@@ -65,10 +65,9 @@ public class gameBoard extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-//				ImageBoard.setPlayer("steps");
-				ImageBoard.x=1;
-				System.out.println("b");
-				ImageBoard.runStep();
+
+				ImageBoard.autoFlag=1;
+
 			}
 		}
 		class Addplayer implements ActionListener{
@@ -78,6 +77,15 @@ public class gameBoard extends JFrame {
 				ImageBoard.setPlayer("player");
 			}
 		}
+		class auto implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ImageBoard.autoFlag=2;
+				ImageBoard.threadFlag=true;
+			}
+		}
+		auto.addActionListener(new auto());
 		addCsv.addActionListener(new Addcsv());
 		addPlayer.addActionListener(new Addplayer());
 		step.addActionListener(new stepBy());
