@@ -32,7 +32,7 @@ public class moveThread extends Thread{
 		play.setIDs(307967992,313383259);
 		play.start();
 		double [] e=new double[3];
-		while((getTimeLeft(this.play.getStatistics())>0)&&(game.getFruit().size()>0))
+		while(play.isRuning())//(getTimeLeft(this.play.getStatistics())>0)&&(game.getFruit().size()>0))
 		{
 			if(counter+1==image.counterAzimut) {
 				Point3D p=image.getPointclicked();
@@ -48,7 +48,7 @@ public class moveThread extends Thread{
 				image.update();
 			}
 			try {
-				this.sleep(100);
+				this.sleep(75);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
