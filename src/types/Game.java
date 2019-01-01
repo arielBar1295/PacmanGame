@@ -2,6 +2,7 @@ package types;
 
 import java.util.ArrayList;
 
+import Coords.MyCoords;
 import Geom.Point3D;
 import Robot.Play;
 
@@ -13,10 +14,13 @@ public class Game {
 	private ArrayList<Box> box;
 	private ArrayList<Ghost> ghost;
 	private Play play1;
+	private MyCoords m;
+
 	private Packman playerP;
 	public Game(Play _play1) {
 		this.play1=_play1;
-		this.box=new ArrayList<Box>();
+		this.m=new MyCoords();
+        this.box=new ArrayList<Box>();
 		this.packman=new ArrayList<Packman>();
 		this.ghost=new ArrayList<Ghost>();
 		this.fruit= new ArrayList<Fruit>();
@@ -117,5 +121,17 @@ public class Game {
 		box.removeAll(box);
 		ghost.removeAll(ghost);
 		init(_play1.getBoard());
+	}
+	public Fruit closestF() {
+		Fruit fMin=this.getFruit().get(0);
+		double disMin=m.distance3d(this.getPlayerP().getP(), this.getFruit().get(0).getP());
+		for(int i=1;i<this.getFruit().size();i++) {
+			 double dis=m.distance3d(this.getPlayerP().getP(), this.getFruit().get(i).getP());
+			 if(dis<disMin) {
+				 disMin=dis;
+				 fMin=this.getFruit().get(i);
+			 }
+		}
+		return fMin;
 	}
 }

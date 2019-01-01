@@ -86,8 +86,8 @@ public class ImageBoard extends JPanel implements MouseListener {
 			}
 			for(int i=0;i<game.getBox().size();i++) {
 
-				Point3D p=c.conToPix(game.getBox().get(i).getP(), this.getWidth(), this.getHeight());
-				Point3D p1=c.conToPix(game.getBox().get(i).getP1(), this.getWidth(), this.getHeight());
+				Point3D p=c.conToPix(game.getBox().get(i).getrU(), this.getWidth(), this.getHeight());
+				Point3D p1=c.conToPix(game.getBox().get(i).getlD(), this.getWidth(), this.getHeight());
 				int wq=p1.ix()-p.ix();
 				int hq=Math.abs(p1.iy()-p.iy());
 				Color co = new Color(0.0f, 0.3f, 1.0f);	
@@ -127,6 +127,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
+		System.out.println(x+","+y);
 		Point3D p=new Point3D(x,y);
 		this.pointclicked=c.pixToCo(p, this.getWidth(), this.getHeight());
 		counterAzimut++;
