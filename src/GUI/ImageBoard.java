@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -53,6 +54,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void paint (Graphics g) {
 		int w = this.getWidth();
 		int h = this.getHeight();
+		System.out.println(w+","+h);
 		g.drawImage(myImage, 0, 0, w, h, this);	
 		if (this.flag) {
 
@@ -85,14 +87,26 @@ public class ImageBoard extends JPanel implements MouseListener {
 				g.fillOval((int)x, (int)y, r, r);
 			}
 			for(int i=0;i<game.getBox().size();i++) {
-
+				//System.out.println(game.getBox().get(i).getrU()+ " ," +game.getBox().get(i).getlD());
 				Point3D p=c.conToPix(game.getBox().get(i).getrU(), this.getWidth(), this.getHeight());
 				Point3D p1=c.conToPix(game.getBox().get(i).getlD(), this.getWidth(), this.getHeight());
+				System.out.println(p+","+p1);
 				int wq=p1.ix()-p.ix();
 				int hq=Math.abs(p1.iy()-p.iy());
 				Color co = new Color(0.0f, 0.3f, 1.0f);	
 				g.setColor(co.black);
-				g.fillRect(p.ix(), p1.iy(), wq,hq);
+				Rectangle r1=new Rectangle(p.ix(), p1.iy(), wq, hq);
+//				g.fillRect(p.ix(), p1.iy(), wq,hq);
+				g.fillRect(r1.x,r1.y,r1.width,r1.height);
+//				g.drawLine(506, 118, 1056 , 268);
+//				g.drawLine(506 ,118, 1056 , 327);
+//				g.drawLine(506 ,118, 423 , 268);
+//				g.drawLine(506 ,118,423 , 327);
+//				g.drawLine(506, 118, 787 , 111);
+//				g.drawLine(506, 118, 787 , 457);
+//				g.drawLine(506, 118,  748 , 111);
+//				g.drawLine(506, 118,748 , 457);
+				//System.out.println(r1.toString());
 
 			}
 			if(playerPrint) {

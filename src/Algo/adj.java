@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import Geom.Point3D;
 
 public class adj {
-private ArrayList<Point3D> ad=new  ArrayList<Point3D> (); ;
+private int id=0;
 private Point3D source=new Point3D(0,0,0);
+public adj(adj a) {
+	this.setId(a.getId());
+	this.setSource(a.getSource());
+}
 
-public ArrayList<Point3D> getAd() {
-	return ad;
-}
-public void setAd(ArrayList<Point3D> ad) {
-	this.ad = ad;
-}
 public Point3D getSource() {
 	return source;
 }
@@ -21,6 +19,12 @@ public void setSource(Point3D source) {
 	this.source = source;
 }
 
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
 public adj() {
 	
 }
