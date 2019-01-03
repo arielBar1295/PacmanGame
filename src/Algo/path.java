@@ -45,7 +45,7 @@ public class path {
 		this.dis=new ArrayList<>();
 	}
 
-	public distance shortPath() {
+	public distance shortPath() { //short
 		int counterId=0;
 		Point3D source=new Point3D(c.conToPix(game.getPlayerP().getP(), 1283, 583));
 		Point3D sourceO=new Point3D(source);
