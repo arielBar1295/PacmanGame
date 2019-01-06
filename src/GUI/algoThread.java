@@ -8,6 +8,7 @@ import Coords.MyCoords;
 import Geom.Point3D;
 import Maps.Convert;
 import Robot.Play;
+import SQL.readSQL;
 import types.Fruit;
 import types.Game;
 
@@ -63,21 +64,21 @@ public class algoThread extends Thread{
 			
 			Point3D po= changeF(fruit);
 			fruit= new Point3D(po);
-			for(int i=1;i<d.getPath().size()-1&&isIn;i++) {
+			for(int i=1;i<d.getPath().size()-1&&isIn&&play.isRuning();i++) {
 				isIn=inTheGame(fruit);
 				Point3D target=c.pixToCo(d.getPath().get(i), image.getWidth(), image.getHeight());
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
 				//game.update(play);
-				while(m.distance3d(game.getPlayerP().getP(), target)>1&&isIn) 
+				while(m.distance3d(game.getPlayerP().getP(), target)>1&&isIn&&play.isRuning()) 
 				{
-				
+				//System.out.println("in first");
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
 				game.update(play);
 				image.update();
 				try {
-					this.sleep(100);
+					this.sleep(10);
 				} catch (InterruptedException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -87,26 +88,36 @@ public class algoThread extends Thread{
 			}
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
-			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&inTheGame(fruit)) {
+			//isIn=inTheGame(fruit);
+			isIn=true;
+			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&isIn&&play.isRuning()) {
+		//	System.out.println("in second");
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
-			
 			play.rotate(e[0]);
 			game.update(play);
 			image.update();
 			try {
-				this.sleep(100);
+				this.sleep(10);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			isIn=inTheGame(fruit);
 			}
-			if (!(game.getFruit().isEmpty())) {
+			if (!(game.getFruit().isEmpty())&&play.isRuning()) {
 			 p=new path(game,image.getWidth(),image.getHeight());
 			 d=p.shortPath();
 			 isIn=true;
 			}
 			 System.out.println(play.getStatistics());
+			// System.out.println(play.isRuning());
+			
 		}
-		
+		//System.out.println("1");
+		 System.out.println("finel : "+play.getStatistics());
+		// System.out.println(play.isRuning());
+		 readSQL sql=new readSQL();
+		 sql.getSqlresulte();
 	}
+	
 }

@@ -46,7 +46,12 @@ public class path {
 	}
 
 	public distance shortPath() { 
-
+		distance Dis=new distance();
+		if (game.getBox().size()==0) {
+			
+			Dis.getPath().add(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
+			Dis.getPath().add(c.conToPix(game.closestF().getP(), this.width, this.height));
+		}else {
 		for (int k = 0; k <game.getFruit().size() ; k++)
 		{
 			int counterId=0;
@@ -70,19 +75,19 @@ public class path {
 					//*****set line between source to all the vertex box and the fruit *****
 					ArrayList<Line2D> aLine = new ArrayList<>();
 					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
-					temp.add(new Point3D(1.5,-1.5,0));
+					temp.add(new Point3D(2,-2,0));
 					Line2D l = new Line2D.Double(source.x(), source.y(), temp.x(), temp.y());		
 					aLine.add(l);
 					Point3D temp1=new Point3D(c.conToPix(game.getBox().get(i).getLu(),  this.width, this.height));
-					temp1.add(new Point3D(1.5, 1.5));
+					temp1.add(new Point3D(2, 2));
 					Line2D l2=new Line2D.Double(source.x(), source.y(), temp1.x(), temp1.y());
 					aLine.add(l2);
 					Point3D temp2=new Point3D(c.conToPix(game.getBox().get(i).getrD(), this.width, this.height));
-					temp2.add(new Point3D(-1.5, -1.5));
+					temp2.add(new Point3D(-2, -2));
 					Line2D l3=new Line2D.Double(source.x(), source.y(), temp2.x(), temp2.y());
 					aLine.add(l3);
 					Point3D temp3=new Point3D(c.conToPix(game.getBox().get(i).getrU(), this.width, this.height));
-					temp3.add(new Point3D(-1.5, 1.5));
+					temp3.add(new Point3D(-2, 2));
 					Line2D l4=new Line2D.Double(source.x(), source.y(), temp3.x(), temp3.y());
 					aLine.add(l4);
 					Line2D l5=new Line2D.Double(source.x(), source.y(), target.x(), target.y());
@@ -129,13 +134,15 @@ public class path {
 				}
 
 			}
-			distance Dis= dijkstra(g,ad);
+			 Dis= dijkstra(g,ad);
 			dis.add(Dis);
 			ad.removeAll(ad);
 
 		}
 		int minDistance=min(dis);//return the index of the minimum distance
 		return (dis.get(minDistance));
+		}
+		return Dis;
 	}
 	private int min(ArrayList<distance> dis2) {
 		int min = 0;

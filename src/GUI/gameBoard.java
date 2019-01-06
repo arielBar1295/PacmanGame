@@ -51,7 +51,7 @@ public class gameBoard extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 
-				JFileChooser fileChooser= new JFileChooser();
+				JFileChooser fileChooser= new JFileChooser("./data");
 				fileChooser.setAcceptAllFileFilterUsed(false);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV file", "csv");
 				fileChooser.setFileFilter(filter);
