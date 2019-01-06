@@ -46,19 +46,18 @@ public class path {
 	}
 
 	public distance shortPath() { 
-		int counterId=0;
-		Point3D source=new Point3D(c.conToPix(game.getPlayerP().getP(), 1283, 583));
-		Point3D sourceO=new Point3D(source);
-		adj Adj=new adj();
-		Adj.setSource(source);
-		Adj.setId(0);
-		queue.add(Adj);
-		ad.add(Adj);
 
 		for (int k = 0; k <game.getFruit().size() ; k++)
 		{
+			int counterId=0;
+			Point3D source=new Point3D(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
+			adj Adj=new adj();
+			Adj.setSource(source);
+			Adj.setId(0);
+			queue.add(Adj);
+			ad.add(Adj);
 			int size = game.getBox().size()*4+1;
-			Point3D target=new Point3D(c.conToPix(game.getFruit().get(0).getP(), 1283, 583));
+			Point3D target=new Point3D(c.conToPix(game.getFruit().get(k).getP(), this.width, this.height));
 			adj fruit = new adj();
 			fruit.setId(size);
 			fruit.setSource(target);
@@ -69,19 +68,19 @@ public class path {
 				for(int i=0;i<game.getBox().size();i++) {
 					//*****set line between source to all the vertex box and the fruit *****
 					ArrayList<Line2D> aLine = new ArrayList<>();
-					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), 1283, 583));
+					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
 					temp.add(new Point3D(1,-1,0));
 					Line2D l = new Line2D.Double(source.x(), source.y(), temp.x(), temp.y());		
 					aLine.add(l);
-					Point3D temp1=new Point3D(c.conToPix(game.getBox().get(i).getLu(),  1283, 583));
+					Point3D temp1=new Point3D(c.conToPix(game.getBox().get(i).getLu(),  this.width, this.height));
 					temp1.add(new Point3D(1, 1));
 					Line2D l2=new Line2D.Double(source.x(), source.y(), temp1.x(), temp1.y());
 					aLine.add(l2);
-					Point3D temp2=new Point3D(c.conToPix(game.getBox().get(i).getrD(), 1283, 583));
+					Point3D temp2=new Point3D(c.conToPix(game.getBox().get(i).getrD(), this.width, this.height));
 					temp2.add(new Point3D(-1, -1));
 					Line2D l3=new Line2D.Double(source.x(), source.y(), temp2.x(), temp2.y());
 					aLine.add(l3);
-					Point3D temp3=new Point3D(c.conToPix(game.getBox().get(i).getrU(), 1283, 583));
+					Point3D temp3=new Point3D(c.conToPix(game.getBox().get(i).getrU(), this.width, this.height));
 					temp3.add(new Point3D(-1, 1));
 					Line2D l4=new Line2D.Double(source.x(), source.y(), temp3.x(), temp3.y());
 					aLine.add(l4);
@@ -91,8 +90,8 @@ public class path {
 					for (Line2D line:aLine) {
 						boolean isadj=true;
 						for (Box b:game.getBox()) {
-							Point3D p=c.conToPix(b.getrU(),  1283, 583);
-							Point3D p1=c.conToPix(b.getlD(),  1283, 583);
+							Point3D p=c.conToPix(b.getrU(),  this.width, this.height);
+							Point3D p1=c.conToPix(b.getlD(),  this.width, this.height);
 							int wq=p1.ix()-p.ix();
 							int hq=Math.abs(p1.iy()-p.iy());
 							Rectangle r1=new Rectangle(p.ix(), p1.iy(), wq, hq);
@@ -134,8 +133,12 @@ public class path {
 			}
 			distance Dis= dijkstra(g,ad);
 			dis.add(Dis);
+			ad.removeAll(ad);
+
 		}
 		int minDistance=min(dis);//return the index of the minimum distance
+		System.out.println();
+		System.out.println(dis.get(minDistance).getDis()+" , "+dis.get(minDistance).getPath());
 		return (dis.get(minDistance));
 	}
 	private int min(ArrayList<distance> dis2) {
@@ -146,11 +149,12 @@ public class path {
 		}
 		return min;
 	}
-
+//********Calculate the path with Dijkstra graph*******
 	public distance dijkstra(graph g, ArrayList<adj>ad) {
 		String source=Integer.toString(ad.get(0).getId());
 		String target=Integer.toString(ad.get(1).getId());
 		Graph G = new Graph(); 
+		G.clear_meta_data();
 		G.add(new Node(source));
 		for(int i=2;i<ad.size();i++) {
 			Node d = new Node(Integer.toString(ad.get(i).getId()));
@@ -158,12 +162,14 @@ public class path {
 		}
 		G.add(new Node(target));
 		for(int i=0;i<g.getAdj().length;i++) {
-			Point3D s=new Point3D(getPoint(ad,g.getAdj()[i].get(0)));
-			for (int j = 0; j < g.getAdj()[i].size(); j++) {
-				//Point3D s=new Point3D(getPoint(ad,g.getAdj()[i].get(0)));
-				Point3D t=new Point3D(getPoint(ad,g.getAdj()[i].get(j)));
-				G.addEdge(Integer.toString(g.getAdj()[i].get(0)),Integer.toString( g.getAdj()[i].get(j)),m.distance3d(s, t));
-				//G.addEdge("a","1",pp[0].distance2D(pp[1]));
+			if(g.getAdj()[i].size()>0) {
+				Point3D s=new Point3D(getPoint(ad,i));
+				for (int j = 0; j < g.getAdj()[i].size(); j++) {
+					//Point3D s=new Point3D(getPoint(ad,g.getAdj()[i].get(0)));
+					Point3D t=new Point3D(getPoint(ad,g.getAdj()[i].get(j)));
+					G.addEdge(Integer.toString(i),Integer.toString( g.getAdj()[i].get(j)),s.distance2D(t));
+					//G.addEdge("a","1",pp[0].distance2D(pp[1]));
+				}
 			}
 		}
 		Graph_Algo.dijkstra(G, source);
@@ -176,13 +182,17 @@ public class path {
 		ArrayList<String> shortestPath = b.getPath();
 		for(int i=0;i<shortestPath.size();i++) {
 			System.out.print(","+shortestPath.get(i));
+			
 		}
+		System.out.println();
 		distance dis= new distance();
 		dis.setDis(b.getDist());
 		for (int i = 0; i <shortestPath.size() ; i++) {
 			Point3D poi =getPoint(ad,Integer.parseInt(shortestPath.get(i)));
 			dis.getPath().add(poi);
 		}
+		Point3D tar=ad.get(1).getSource();
+		dis.getPath().add(tar);
 		return dis;
 
 	}
@@ -194,32 +204,32 @@ public class path {
 		}
 		return new Point3D(0,0,0);
 	}
-	public static void main(String[] args) {
-		String file_name = "data/Ex4_OOP_example5.csv";
-		BufferedImage myImage = null;
-		try {
-			myImage = ImageIO.read(new File("image.png"));
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		Convert c = new Convert();
-		Point3D p1 = c.pixToCo(new Point3D(506,118), 1283, 583);
-		System.out.println(p1);
-		Play play1 = new Play(file_name);
-		play1.setInitLocation(p1.y(),p1.x());
-		Game g = new Game(play1);
-		ImageBoard im= new ImageBoard();
-		path p = new path(g,im.getWidth(),im.getHeight() );
-		p.shortPath();
-		//		for (int i = 0; i < p.ad.size(); i++) {
-		//			System.out.print("source : "+p.ad.get(i).getSource());
-		//			for (int j = 0; j <p.ad.get(i).getAd().size(); j++) {
-		//				System.out.print("path : "+p.ad.get(i).getAd().get(j));
-		//			}
-		//			System.out.println();
-		//		}
-
-	}
+//	public static void main(String[] args) {
+//		String file_name = "data/Ex4_OOP_example5.csv";
+//		BufferedImage myImage = null;
+//		try {
+//			myImage = ImageIO.read(new File("image.png"));
+//
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		Convert c = new Convert();
+//		Point3D p1 = c.pixToCo(new Point3D(506,118), 1283, 583);
+//		System.out.println(p1);
+//		Play play1 = new Play(file_name);
+//		play1.setInitLocation(p1.y(),p1.x());
+//		Game g = new Game(play1);
+//		ImageBoard im= new ImageBoard();
+//		path p = new path(g,im.getWidth(),im.getHeight() );
+//		p.shortPath();
+//		//		for (int i = 0; i < p.ad.size(); i++) {
+//		//			System.out.print("source : "+p.ad.get(i).getSource());
+//		//			for (int j = 0; j <p.ad.get(i).getAd().size(); j++) {
+//		//				System.out.print("path : "+p.ad.get(i).getAd().get(j));
+//		//			}
+//		//			System.out.println();
+//		//		}
+//
+//	}
 
 }

@@ -34,7 +34,7 @@ public class graph {
 	    void addEdge(int v,int w) 
 	    { 
 	    	if(!adj[v].contains(w)) {
-	    		System.out.println(v+","+w);
+	    		//System.out.println(v+","+w);
 	        adj[v].add(w); 
 	    	}
 	    } 
