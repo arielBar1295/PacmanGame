@@ -64,24 +64,25 @@ public class path {
 			ad.add(fruit);
 			graph g = new graph(game.getBox().size()*4+2);
 			while(!(queue.isEmpty())){
-
+				Adj=new adj(queue.poll());
+				source=new Point3D(Adj.getSource());
 				for(int i=0;i<game.getBox().size();i++) {
 					//*****set line between source to all the vertex box and the fruit *****
 					ArrayList<Line2D> aLine = new ArrayList<>();
 					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
-					temp.add(new Point3D(1,-1,0));
+					temp.add(new Point3D(1.5,-1.5,0));
 					Line2D l = new Line2D.Double(source.x(), source.y(), temp.x(), temp.y());		
 					aLine.add(l);
 					Point3D temp1=new Point3D(c.conToPix(game.getBox().get(i).getLu(),  this.width, this.height));
-					temp1.add(new Point3D(1, 1));
+					temp1.add(new Point3D(1.5, 1.5));
 					Line2D l2=new Line2D.Double(source.x(), source.y(), temp1.x(), temp1.y());
 					aLine.add(l2);
 					Point3D temp2=new Point3D(c.conToPix(game.getBox().get(i).getrD(), this.width, this.height));
-					temp2.add(new Point3D(-1, -1));
+					temp2.add(new Point3D(-1.5, -1.5));
 					Line2D l3=new Line2D.Double(source.x(), source.y(), temp2.x(), temp2.y());
 					aLine.add(l3);
 					Point3D temp3=new Point3D(c.conToPix(game.getBox().get(i).getrU(), this.width, this.height));
-					temp3.add(new Point3D(-1, 1));
+					temp3.add(new Point3D(-1.5, 1.5));
 					Line2D l4=new Line2D.Double(source.x(), source.y(), temp3.x(), temp3.y());
 					aLine.add(l4);
 					Line2D l5=new Line2D.Double(source.x(), source.y(), target.x(), target.y());
@@ -119,17 +120,14 @@ public class path {
 								ad.add(t);
 								queue.add(t);
 								g.addEdge(Adj.getId(), t.getId());
-								//System.out.println(Adj.getId()+" , "+t.getId());
 							}
 							if(istargat) {
 								g.addEdge(Adj.getId(), fruit.getId());
-								//System.out.println(Adj.getId()+","+ fruit.getId());
 							}
 						}
 					}
 				}
-				Adj=new adj(queue.poll());
-				source=new Point3D(Adj.getSource());
+
 			}
 			distance Dis= dijkstra(g,ad);
 			dis.add(Dis);
@@ -137,8 +135,6 @@ public class path {
 
 		}
 		int minDistance=min(dis);//return the index of the minimum distance
-		System.out.println();
-		System.out.println(dis.get(minDistance).getDis()+" , "+dis.get(minDistance).getPath());
 		return (dis.get(minDistance));
 	}
 	private int min(ArrayList<distance> dis2) {
@@ -165,10 +161,10 @@ public class path {
 			if(g.getAdj()[i].size()>0) {
 				Point3D s=new Point3D(getPoint(ad,i));
 				for (int j = 0; j < g.getAdj()[i].size(); j++) {
-					//Point3D s=new Point3D(getPoint(ad,g.getAdj()[i].get(0)));
+				
 					Point3D t=new Point3D(getPoint(ad,g.getAdj()[i].get(j)));
 					G.addEdge(Integer.toString(i),Integer.toString( g.getAdj()[i].get(j)),s.distance2D(t));
-					//G.addEdge("a","1",pp[0].distance2D(pp[1]));
+				
 				}
 			}
 		}
@@ -176,15 +172,15 @@ public class path {
 
 		//creating distance!!
 		Node b = G.getNodeByName(target);
-		System.out.println("***** Graph Demo for OOP_Ex4 *****");
-		System.out.println(b);
-		System.out.println("Dist: "+b.getDist());
+//		System.out.println("***** Graph Demo for OOP_Ex4 *****");
+//		System.out.println(b);
+//		System.out.println("Dist: "+b.getDist());
 		ArrayList<String> shortestPath = b.getPath();
-		for(int i=0;i<shortestPath.size();i++) {
-			System.out.print(","+shortestPath.get(i));
-			
-		}
-		System.out.println();
+//		for(int i=0;i<shortestPath.size();i++) {
+//			System.out.print(","+shortestPath.get(i));
+//			
+//		}
+		
 		distance dis= new distance();
 		dis.setDis(b.getDist());
 		for (int i = 0; i <shortestPath.size() ; i++) {

@@ -32,7 +32,7 @@ public class moveThread extends Thread{
 		play.setIDs(307967992,313383259);
 		play.start();
 		double [] e=new double[3];
-		while(play.isRuning())//(getTimeLeft(this.play.getStatistics())>0)&&(game.getFruit().size()>0))
+		while(play.isRuning())
 		{
 			if(counter+1==image.counterAzimut) {
 				Point3D p=image.getPointclicked();
@@ -57,10 +57,5 @@ public class moveThread extends Thread{
 		}
 	
 	}
-	private double getTimeLeft(String s) {
 
-		String [] arr=s.split(",");
-		String [] timeLeft=arr[3].split(":");
-		return Double.parseDouble(timeLeft[1]);
-	}
 }

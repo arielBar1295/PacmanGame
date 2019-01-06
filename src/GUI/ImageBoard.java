@@ -54,7 +54,6 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void paint (Graphics g) {
 		int w = this.getWidth();
 		int h = this.getHeight();
-		System.out.println(w+","+h);
 		g.drawImage(myImage, 0, 0, w, h, this);	
 		if (this.flag) {
 
@@ -90,23 +89,13 @@ public class ImageBoard extends JPanel implements MouseListener {
 				//System.out.println(game.getBox().get(i).getrU()+ " ," +game.getBox().get(i).getlD());
 				Point3D p=c.conToPix(game.getBox().get(i).getrU(), this.getWidth(), this.getHeight());
 				Point3D p1=c.conToPix(game.getBox().get(i).getlD(), this.getWidth(), this.getHeight());
-				System.out.println(p+","+p1);
 				int wq=p1.ix()-p.ix();
 				int hq=Math.abs(p1.iy()-p.iy());
 				Color co = new Color(0.0f, 0.3f, 1.0f);	
 				g.setColor(co.black);
 				Rectangle r1=new Rectangle(p.ix(), p1.iy(), wq, hq);
-//				g.fillRect(p.ix(), p1.iy(), wq,hq);
 				g.fillRect(r1.x,r1.y,r1.width,r1.height);
-//				g.drawLine(506, 118, 1056 , 268);
-//				g.drawLine(506 ,118, 1056 , 327);
-//				g.drawLine(506 ,118, 423 , 268);
-//				g.drawLine(506 ,118,423 , 327);
-//				g.drawLine(506, 118, 787 , 111);
-//				g.drawLine(506, 118, 787 , 457);
-//				g.drawLine(506, 118,  748 , 111);
-//				g.drawLine(506, 118,748 , 457);
-				//System.out.println(r1.toString());
+
 
 			}
 			if(playerPrint) {
@@ -141,7 +130,6 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println(x+","+y);
 		Point3D p=new Point3D(x,y);
 		this.pointclicked=c.pixToCo(p, this.getWidth(), this.getHeight());
 		counterAzimut++;
@@ -209,5 +197,10 @@ public class ImageBoard extends JPanel implements MouseListener {
 	}
 	public void setPointclicked(Point3D pointclicked) {
 		this.pointclicked = pointclicked;
+	}
+	public void startAlgo() {
+		algoThread t=new algoThread(this,game,play1);
+		t.start();
+		
 	}
 }

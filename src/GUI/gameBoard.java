@@ -34,6 +34,7 @@ public class gameBoard extends JFrame {
 		MenuItem clear = new MenuItem("Clear Game");
 		MenuItem step=new MenuItem("step");
 		MenuItem auto=new MenuItem("auto");
+		MenuItem algo=new MenuItem("algo");
 		MenuBar menuBar = new MenuBar();
 		this.setMenuBar(menuBar);
 		menuBar.add(add);
@@ -44,6 +45,7 @@ public class gameBoard extends JFrame {
 		add.add(addCsv);
 		Run.add(step);
 		Run.add(auto);
+		Run.add(algo);
 		class Addcsv implements ActionListener{
 
 			@Override
@@ -58,6 +60,16 @@ public class gameBoard extends JFrame {
 					String s=file.getAbsolutePath();
 					ImageBoard.addFile(s);
 				}
+
+			}
+		}
+		class algo implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				
+				ImageBoard.startAlgo();
 
 			}
 		}
@@ -89,6 +101,7 @@ public class gameBoard extends JFrame {
 		addCsv.addActionListener(new Addcsv());
 		addPlayer.addActionListener(new Addplayer());
 		step.addActionListener(new stepBy());
+		algo.addActionListener(new algo());
 	}
 	public static void main(String[] args) {
 		new gameBoard();
