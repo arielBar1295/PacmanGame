@@ -69,10 +69,10 @@ public class algoThread extends Thread{
 				Point3D target=c.pixToCo(d.getPath().get(i), image.getWidth(), image.getHeight());
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
-				//game.update(play);
+			
 				while(m.distance3d(game.getPlayerP().getP(), target)>1&&isIn&&play.isRuning()) 
 				{
-				//System.out.println("in first");
+				;
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
 				game.update(play);
@@ -88,7 +88,7 @@ public class algoThread extends Thread{
 			}
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
-			//isIn=inTheGame(fruit);
+			
 			isIn=true;
 			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&isIn&&play.isRuning()) {
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
@@ -109,10 +109,10 @@ public class algoThread extends Thread{
 			 isIn=true;
 			}
 			 System.out.println(play.getStatistics());
-			// System.out.println(play.isRuning());
+			
 			
 		}
-		//System.out.println("1");
+		
 		 System.out.println("final : "+play.getStatistics());
 		System.out.println("**********sql resulte**********");
 		 readSQL sql=new readSQL();
