@@ -76,19 +76,19 @@ public class path {
 					//*****set line between source to all the vertex box and the fruit *****
 					ArrayList<Line2D> aLine = new ArrayList<>();
 					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
-					temp.add(new Point3D(2,-2,0));
+					temp.add(new Point3D(3,-3,0));
 					Line2D l = new Line2D.Double(source.x(), source.y(), temp.x(), temp.y());		
 					aLine.add(l);
 					Point3D temp1=new Point3D(c.conToPix(game.getBox().get(i).getLu(),  this.width, this.height));
-					temp1.add(new Point3D(2, 2));
+					temp1.add(new Point3D(3, 3));
 					Line2D l2=new Line2D.Double(source.x(), source.y(), temp1.x(), temp1.y());
 					aLine.add(l2);
 					Point3D temp2=new Point3D(c.conToPix(game.getBox().get(i).getrD(), this.width, this.height));
-					temp2.add(new Point3D(-2, -2));
+					temp2.add(new Point3D(-3, -3));
 					Line2D l3=new Line2D.Double(source.x(), source.y(), temp2.x(), temp2.y());
 					aLine.add(l3);
 					Point3D temp3=new Point3D(c.conToPix(game.getBox().get(i).getrU(), this.width, this.height));
-					temp3.add(new Point3D(-2, 2));
+					temp3.add(new Point3D(-3, 3));
 					Line2D l4=new Line2D.Double(source.x(), source.y(), temp3.x(), temp3.y());
 					aLine.add(l4);
 					Line2D l5=new Line2D.Double(source.x(), source.y(), target.x(), target.y());
