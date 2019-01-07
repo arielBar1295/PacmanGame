@@ -91,7 +91,6 @@ public class algoThread extends Thread{
 			//isIn=inTheGame(fruit);
 			isIn=true;
 			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&isIn&&play.isRuning()) {
-		//	System.out.println("in second");
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
 			game.update(play);
@@ -115,7 +114,7 @@ public class algoThread extends Thread{
 		}
 		//System.out.println("1");
 		 System.out.println("finel : "+play.getStatistics());
-		// System.out.println(play.isRuning());
+		System.out.println("**********sql resulte**********");
 		 readSQL sql=new readSQL();
 		 sql.getSqlresulte();
 	}

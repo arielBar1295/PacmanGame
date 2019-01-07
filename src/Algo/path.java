@@ -47,6 +47,7 @@ public class path {
 
 	public distance shortPath() { 
 		distance Dis=new distance();
+		//no box
 		if (game.getBox().size()==0) {
 			
 			Dis.getPath().add(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
@@ -207,32 +208,6 @@ public class path {
 		}
 		return new Point3D(0,0,0);
 	}
-//	public static void main(String[] args) {
-//		String file_name = "data/Ex4_OOP_example5.csv";
-//		BufferedImage myImage = null;
-//		try {
-//			myImage = ImageIO.read(new File("image.png"));
-//
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//		Convert c = new Convert();
-//		Point3D p1 = c.pixToCo(new Point3D(506,118), 1283, 583);
-//		System.out.println(p1);
-//		Play play1 = new Play(file_name);
-//		play1.setInitLocation(p1.y(),p1.x());
-//		Game g = new Game(play1);
-//		ImageBoard im= new ImageBoard();
-//		path p = new path(g,im.getWidth(),im.getHeight() );
-//		p.shortPath();
-//		//		for (int i = 0; i < p.ad.size(); i++) {
-//		//			System.out.print("source : "+p.ad.get(i).getSource());
-//		//			for (int j = 0; j <p.ad.get(i).getAd().size(); j++) {
-//		//				System.out.print("path : "+p.ad.get(i).getAd().get(j));
-//		//			}
-//		//			System.out.println();
-//		//		}
-//
-//	}
+
 
 }
