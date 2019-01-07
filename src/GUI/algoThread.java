@@ -70,15 +70,19 @@ public class algoThread extends Thread{
 			for(int i=1;i<d.getPath().size()-1&&isIn&&play.isRuning();i++) {
 				isIn=inTheGame(fruit);
 				Point3D target=c.pixToCo(d.getPath().get(i), image.getWidth(), image.getHeight());
+				
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
 			
 				while(m.distance3d(game.getPlayerP().getP(), target)>1&&isIn&&play.isRuning()) 
 				{
-				;
+				
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
-				game.update(play);
+				synchronized (game) {
+					game.update(play);
+				}
+			
 				image.update();
 				try {
 					this.sleep(10);
@@ -93,10 +97,13 @@ public class algoThread extends Thread{
 			play.rotate(e[0]);
 			
 			isIn=true;
+		
 			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&isIn&&play.isRuning()) {
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
-			game.update(play);
+			synchronized (game) {
+				game.update(play);
+			}
 			image.update();
 			try {
 				this.sleep(10);
