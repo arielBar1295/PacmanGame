@@ -113,7 +113,7 @@ public class algoThread extends Thread{
 			
 		}
 		//System.out.println("1");
-		 System.out.println("finel : "+play.getStatistics());
+		 System.out.println("final : "+play.getStatistics());
 		System.out.println("**********sql resulte**********");
 		 readSQL sql=new readSQL();
 		 sql.getSqlresulte();
