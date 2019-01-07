@@ -63,6 +63,15 @@ public class gameBoard extends JFrame {
 
 			}
 		}
+		class Clear implements ActionListener{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ImageBoard.clear();
+
+			}
+
+		}
 		class algo implements ActionListener{
 
 			@Override
@@ -97,6 +106,7 @@ public class gameBoard extends JFrame {
 				ImageBoard.threadFlag=true;
 			}
 		}
+		Clear.addActionListener(new Clear());
 		auto.addActionListener(new auto());
 		addCsv.addActionListener(new Addcsv());
 		addPlayer.addActionListener(new Addplayer());

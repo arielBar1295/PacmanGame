@@ -199,8 +199,27 @@ public class ImageBoard extends JPanel implements MouseListener {
 		this.pointclicked = pointclicked;
 	}
 	public void startAlgo() {
+		//locating the packman on the first fruit.
+		Point3D pointpackman=game.getFruit().get(0).getP();
+		
+		pointpackman=m.add(pointpackman, new Point3D(1,1,0));
+		play1.setInitLocation(pointpackman.y(), pointpackman.x());
+		game.update(play1);
+		playerPrint=true;
+		repaint();
 		algoThread t=new algoThread(this,game,play1);
 		t.start();
 		
+	}
+	public void clear() {
+		game.getBox().removeAll(game.getBox());
+		game.getFruit().removeAll(game.getFruit());
+		game.getGhost().removeAll(game.getGhost());
+		game.getPackman().removeAll(game.getPackman());
+		game.getPlayerP().setP(new Point3D(0,0));
+		//this.play1=new Play();
+		counterAzimut=0;
+		autoFlag=0;
+		repaint();
 	}
 }

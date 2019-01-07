@@ -37,8 +37,10 @@ public class algoThread extends Thread{
 		return isIn;
 	}
 	private Point3D changeF(Point3D p) {
+		Point3D p1=new Point3D(0,0,0);
+		if(game.getFruit().size()>0) {
 		double dis=game.getFruit().get(0).getP().distance3D(p);
-		Point3D p1=new Point3D(game.getFruit().get(0).getP());
+		 p1=new Point3D(game.getFruit().get(0).getP());
 		for(Fruit f:game.getFruit()) {
 			 {
 				if(f.getP().distance2D(p)<dis) {
@@ -46,6 +48,7 @@ public class algoThread extends Thread{
 				dis=f.getP().distance2D(p);
 				}
 			}
+		}
 		}
 		return p1;
 		
