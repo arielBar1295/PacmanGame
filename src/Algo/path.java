@@ -47,7 +47,7 @@ public class path {
 
 	public distance shortPath() { 
 		distance Dis=new distance();
-		//no box
+		//if there are no box ,go to the closest fruit.
 		if (game.getBox().size()==0) {
 			
 			Dis.getPath().add(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
