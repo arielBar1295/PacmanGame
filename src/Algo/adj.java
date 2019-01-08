@@ -3,7 +3,11 @@ package Algo;
 import java.util.ArrayList;
 
 import Geom.Point3D;
-
+/**
+ * This class responsible for saving the data while building the graph  
+ * @author ariel and moshe
+ *
+ */
 public class adj {
 private int id=0;
 private Point3D source=new Point3D(0,0,0);

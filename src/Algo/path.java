@@ -23,6 +23,11 @@ import javax.imageio.ImageIO;
 
 
 import Coords.MyCoords;
+/**
+ * This class responsible for calculating the shortest path for the player to the next fruit.
+ * @author ariel and moshe
+ *
+ */
 public class path {
 	private Game game;
 	private MyCoords m;
@@ -44,20 +49,28 @@ public class path {
 		this.queue=new LinkedList<adj>();
 		this.dis=new ArrayList<>();
 	}
-
+/**
+ * This function calculates the shortest path for the pacman to a specific fruit,using dijkstra.
+ * @return the minimum distance after calculating all the possible distances to each fruit.
+ */
 	public distance shortPath() { 
-		double disToAdd=3.3;
+		
+		double disToAdd=3.4;
 		distance Dis=new distance();
-		//if there are no box ,go to the closest fruit.
+		//if there are no box ,meaning no obstacles,go to the closest fruit.
 		if (game.getBox().size()==0) {
-			
 			Dis.getPath().add(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
 			Dis.getPath().add(c.conToPix(game.closestF().getP(), this.width, this.height));
-		}else {
+		}
+		//there are boxes.
+		else {
+			//running over all the existing fruits.
 		for (int k = 0; k <game.getFruit().size() ; k++)
 		{
 			int counterId=0;
+			//converting
 			Point3D source=new Point3D(c.conToPix(game.getPlayerP().getP(), this.width, this.height));
+			//creating a new object.
 			adj Adj=new adj();
 			Adj.setSource(source);
 			Adj.setId(0);
@@ -70,11 +83,16 @@ public class path {
 			fruit.setSource(target);
 			ad.add(fruit);
 			graph g = new graph(game.getBox().size()*4+2);
+			//running over all the elements in the queue ,using BFS.
+			//pulling from the queue the specific adj,and check whose neighbors .
 			while(!(queue.isEmpty())){
 				Adj=new adj(queue.poll());
 				source=new Point3D(Adj.getSource());
+				//running over the box ,drawing a line between the our source node to each edge of every box.
+				
 				for(int i=0;i<game.getBox().size();i++) {
 					//*****set line between source to all the vertex box and the fruit *****
+					//saving all the line in the arraylist ,checking each line.
 					ArrayList<Line2D> aLine = new ArrayList<>();
 					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
 					temp.add(new Point3D(disToAdd,-disToAdd,0));
@@ -103,13 +121,16 @@ public class path {
 							int wq=p1.ix()-p.ix();
 							int hq=Math.abs(p1.iy()-p.iy());
 							Rectangle r1=new Rectangle(p.ix(), p1.iy(), wq, hq);
+							//if there is an intersection ,surly not a neighbor
 							if(line.intersects(r1)) {
 								isadj=false;
 							}
 						}
+						//after checking all the possible cuts , if there are no intersections ,means this node is a neighbor.
 						if(isadj) {
 							boolean isin=true;
 							boolean istargat=false;
+							//if this neighbor is already neighbor of another node ,it can be added ,unless its the specific target.
 							for (int j = 0; j < ad.size(); j++) {
 								if(ad.get(j).getSource().x()==line.getX2()&&ad.get(j).getSource().y()==line.getY2()) {
 									isin=false;
@@ -119,6 +140,7 @@ public class path {
 								}
 
 							}
+							//adding the neighbor 
 							if(isin) {
 
 								adj t=new adj();
@@ -136,9 +158,10 @@ public class path {
 				}
 
 			}
+			// calling the dijkstra after finishing builiding the grapgh.
 			 Dis= dijkstra(g,ad);
-			dis.add(Dis);
-			ad.removeAll(ad);
+			 dis.add(Dis);
+			 ad.removeAll(ad);
 
 		}
 		int minDistance=min(dis);//return the index of the minimum distance
@@ -146,6 +169,11 @@ public class path {
 		}
 		return Dis;
 	}
+	/**
+	 * the function searching for the object which holding the minimum distance
+	 * @param dis2 is an array list of dis.
+	 * @return the object with the minimum distance
+	 */
 	private int min(ArrayList<distance> dis2) {
 		int min = 0;
 		for (int i = 0; i < dis2.size(); i++) {
@@ -154,17 +182,21 @@ public class path {
 		}
 		return min;
 	}
-//********Calculate the path with Dijkstra graph*******
+	/**
+	 * the function building the graph in order to call the dijkstra graph
+	 */
 	public distance dijkstra(graph g, ArrayList<adj>ad) {
 		String source=Integer.toString(ad.get(0).getId());
 		String target=Integer.toString(ad.get(1).getId());
 		Graph G = new Graph(); 
 		G.clear_meta_data();
+		//adding the source
 		G.add(new Node(source));
 		for(int i=2;i<ad.size();i++) {
 			Node d = new Node(Integer.toString(ad.get(i).getId()));
 			G.add(d);
 		}
+		//adding the target.
 		G.add(new Node(target));
 		for(int i=0;i<g.getAdj().length;i++) {
 			if(g.getAdj()[i].size()>0) {
@@ -179,18 +211,11 @@ public class path {
 		}
 		Graph_Algo.dijkstra(G, source);
 
-		//creating distance!!
+		//creating distance
 		Node b = G.getNodeByName(target);
-//		System.out.println("***** Graph Demo for OOP_Ex4 *****");
-//		System.out.println(b);
-//		System.out.println("Dist: "+b.getDist());
-		ArrayList<String> shortestPath = b.getPath();
-//		for(int i=0;i<shortestPath.size();i++) {
-//			System.out.print(","+shortestPath.get(i));
-//			
-//		}
-		
-		distance dis= new distance();
+		//building the  arraylist which holds the path.
+        ArrayList<String> shortestPath = b.getPath();
+        distance dis= new distance();
 		dis.setDis(b.getDist());
 		for (int i = 0; i <shortestPath.size() ; i++) {
 			Point3D poi =getPoint(ad,Integer.parseInt(shortestPath.get(i)));
@@ -201,6 +226,12 @@ public class path {
 		return dis;
 
 	}
+	/**
+	 * the function gets an array list of adj object and an id and find the the point of the specific object.
+	 * @param ad is the arraylist
+	 * @param id the id of the object
+	 * @return the point of the specific id
+	 */
 	private Point3D getPoint(ArrayList<adj>ad,int id){
 		for (adj a:ad) {
 			if(a.getId()==id) {
