@@ -51,7 +51,6 @@ public class algoThread extends Thread{
 		}
 		}
 		return p1;
-		
 	}
 	public void run() {
 		play.setIDs(307967992,313383259);
@@ -62,9 +61,7 @@ public class algoThread extends Thread{
 		path p=new path(game,image.getWidth(),image.getHeight());
 		distance d=p.shortPath();
 		while(play.isRuning()) {
-		
 			Point3D fruit=c.pixToCo(d.getPath().get(d.getPath().size()-1),image.getWidth(), image.getHeight());
-			
 			Point3D po= changeF(fruit);
 			fruit= new Point3D(po);
 			for(int i=1;i<d.getPath().size()-1&&isIn&&play.isRuning();i++) {
@@ -73,16 +70,13 @@ public class algoThread extends Thread{
 				
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
-			
 				while(m.distance3d(game.getPlayerP().getP(), target)>1&&isIn&&play.isRuning()) 
 				{
-				
 				e=m.azimuth_elevation_dist(game.getPlayerP().getP(),target);
 				play.rotate(e[0]);
 				synchronized (game) {
 					game.update(play);
 				}
-			
 				image.update();
 				try {
 					this.sleep(10);
@@ -95,9 +89,7 @@ public class algoThread extends Thread{
 			}
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
-			
 			isIn=true;
-		
 			while(m.distance3d(game.getPlayerP().getP(), fruit)>1&&isIn&&play.isRuning()) {
 			e=m.azimuth_elevation_dist(game.getPlayerP().getP(),fruit);
 			play.rotate(e[0]);
@@ -119,11 +111,8 @@ public class algoThread extends Thread{
 			 isIn=true;
 			}
 			 System.out.println(play.getStatistics());
-			
-			
 		}
-		
-		 System.out.println("final : "+play.getStatistics());
+		System.out.println("final : "+play.getStatistics());
 		System.out.println("**********sql resulte**********");
 		 readSQL sql=new readSQL();
 		 sql.getSqlresulte();

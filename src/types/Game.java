@@ -9,6 +9,7 @@ import Robot.Play;
 
 
 public class Game {
+	private int counter=0;// check if the box init 
 	private ArrayList<Packman> packman;
 	private ArrayList<Fruit> fruit;
 	private ArrayList<Box> box;
@@ -25,6 +26,20 @@ public class Game {
 		this.ghost=new ArrayList<Ghost>();
 		this.fruit= new ArrayList<Fruit>();
 		this.playerP=new Packman();
+		for (int i = 0; i < this.play1.getBoard().size(); i++) {
+			String[] s=play1.getBoard().get(i).split(",");
+			if(s[0].equals("B")) {
+				int id=Integer.parseInt(s[1]);
+				double x=Double.parseDouble(s[3]);
+				double y=Double.parseDouble(s[2]);
+				Point3D p=new Point3D(x,y);
+				double x1=Double.parseDouble(s[6]);
+				double y1=Double.parseDouble(s[5]);
+				Point3D p1=new Point3D(x1,y1);
+				Box b=new Box(id,p,p1);
+				box.add(b);
+			}
+		}
 		init(play1.getBoard());
 	}
 	public Packman getPlayerP() {
@@ -77,18 +92,7 @@ public class Game {
 				Ghost g=new Ghost(id,speed,p,raduis);
 				ghost.add(g);
 			}
-			if(s[0].equals("B")) {
-				int id=Integer.parseInt(s[1]);
 
-				double x=Double.parseDouble(s[3]);
-				double y=Double.parseDouble(s[2]);
-				Point3D p=new Point3D(x,y);
-				double x1=Double.parseDouble(s[6]);
-				double y1=Double.parseDouble(s[5]);
-				Point3D p1=new Point3D(x1,y1);
-				Box b=new Box(id,p,p1);
-				box.add(b);
-			}
 		}
 	}
 	public ArrayList<Packman> getPackman() {
@@ -118,7 +122,7 @@ public class Game {
 	public void update(Play _play1) {
 		packman.removeAll(packman);
 		fruit.removeAll(fruit);
-		box.removeAll(box);
+		//box.removeAll(box);
 		ghost.removeAll(ghost);
 		init(_play1.getBoard());
 	}
