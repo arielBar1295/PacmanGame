@@ -92,7 +92,7 @@ public class path {
 				
 				for(int i=0;i<game.getBox().size();i++) {
 					//*****set line between source to all the vertex box and the fruit *****
-					//saving all the line in the arraylist ,checking each line.
+					//saving all the line in the arraylist ,checking if exists intersections.
 					ArrayList<Line2D> aLine = new ArrayList<>();
 					Point3D temp=new Point3D(c.conToPix(game.getBox().get(i).getlD(), this.width, this.height));
 					temp.add(new Point3D(disToAdd,-disToAdd,0));

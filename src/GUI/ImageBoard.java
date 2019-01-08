@@ -93,7 +93,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 				g.fillOval((int)x, (int)y, r, r);
 			}
 			for(int i=0;i<game.getBox().size();i++) {
-				//System.out.println(game.getBox().get(i).getrU()+ " ," +game.getBox().get(i).getlD());
+				
 				Point3D p=c.conToPix(game.getBox().get(i).getrU(), this.getWidth(), this.getHeight());
 				Point3D p1=c.conToPix(game.getBox().get(i).getlD(), this.getWidth(), this.getHeight());
 				int wq=p1.ix()-p.ix();
