@@ -4,16 +4,22 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * this class has access to the results of the game(the data base).
+ * @author ariel and moshe
+ *
+ */
 public class readSQL {
-//	public static void main(String[] args)
-//	{
+/**
+ * This function calculating the overall average and our average in all games.
+ */
 	public void getSqlresulte(){
 		String jdbcUrl="jdbc:mysql://ariel-oop.xyz:3306/oop";
 		String jdbcUser="student";
 		String jdbcPassword="student";
 		double[]ourAvg=new double[9];
 		double[]Avg=new double[9];
+		//building an array saving the id's game.
 		double[]example = {2128259830,1149748017,-683317070,1193961129,1577914705,-1315066918,-1377331871,306711633,919248096};
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -24,7 +30,7 @@ public class readSQL {
 			//select data
 			String allCustomersQuery = "SELECT *FROM logs WHERE SomeDouble=2128259830 AND SecondID=313383259;";
 			ResultSet resultSet = statement.executeQuery(allCustomersQuery);
-
+            //running over all the example and calculate overall average(not including our results).
 			for(int i=0;i<example.length;i++) {
 				allCustomersQuery = "SELECT *FROM logs WHERE SomeDouble="+example[i]+" AND SecondID NOT IN(313383259);";
 				resultSet = statement.executeQuery(allCustomersQuery);
@@ -39,6 +45,7 @@ public class readSQL {
 
 
 			}
+			//calculating our average
 			for(int i=0;i<example.length;i++) {
 				allCustomersQuery = "SELECT *FROM logs WHERE SomeDouble="+example[i]+" AND SecondID=313383259;";
 				resultSet = statement.executeQuery(allCustomersQuery);
@@ -54,6 +61,7 @@ public class readSQL {
 
 
 			}
+			//printing
 			for(int i=0;i<Avg.length;i++) {
 				System.out.println("for game number "+(i+1)+" \nour avg is:"+ourAvg[i]+" overall avg is: "+Avg[i]);
 			}
