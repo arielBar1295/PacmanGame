@@ -1,6 +1,11 @@
 package types;
 
 import Geom.Point3D;
+/**
+ * This class represents a single pacman 
+ * @author moshe and ariel
+ *
+ */
 
 public class Packman {
 private int id;
@@ -10,6 +15,13 @@ private double raduis;
 public Packman(){
 	
 }
+/**
+ * Constructor 
+ * @param _id the packman id
+ * @param _speed the pakman speed
+ * @param _p the packman point location
+ * @param _raduis the packman radius eat
+ */
 public Packman(int _id,double _speed,Point3D _p ,double _raduis) {
 	this.id=_id;
 	this.speed=_speed;

@@ -1,12 +1,22 @@
 package types;
 
 import Geom.Point3D;
-
+/**
+ * This class represents a single ghost 
+ * @author moshe and ariel
+ *
+ */
 public class Ghost {
 	private int id;
 	private Point3D p;
 	private double speed;
 	private double raduis;
+	/**
+	 * @param _id ghost id 
+	 * @param _speed ghost speed
+	 * @param _p ghost point location
+	 * @param _raduis ghost
+	 */
 	public Ghost(int _id,double _speed,Point3D _p ,double _raduis) {
 		this.id=_id;
 		this.speed=_speed;
