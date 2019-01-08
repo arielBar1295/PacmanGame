@@ -11,11 +11,17 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
+/**
+ * The class represents the main frame.
+ * creating the menu ,using the ImageBoard for drawing the elements,the map .
+ * @author moshe and ariel.
+ *
+ */
 
 public class gameBoard extends JFrame {
 	private File file;
 	private ImageBoard ImageBoard;
+	 // Constructor 
 	public gameBoard() {
 		initGUI();	
 
@@ -46,6 +52,7 @@ public class gameBoard extends JFrame {
 		Run.add(step);
 		Run.add(auto);
 		Run.add(algo);
+		//***ActionListener to add csv to the game***
 		class Addcsv implements ActionListener{
 
 			@Override
@@ -63,6 +70,7 @@ public class gameBoard extends JFrame {
 
 			}
 		}
+		//***ActionListener to Clear game***
 		class Clear implements ActionListener{
 
 			@Override
@@ -72,6 +80,7 @@ public class gameBoard extends JFrame {
 			}
 
 		}
+		//***ActionListener to run the algorithm***
 		class algo implements ActionListener{
 
 			@Override
@@ -82,6 +91,7 @@ public class gameBoard extends JFrame {
 
 			}
 		}
+		//***ActionListener to run the game step by step ***
 		class stepBy implements ActionListener{
 
 			@Override
@@ -91,6 +101,7 @@ public class gameBoard extends JFrame {
 
 			}
 		}
+		//***ActionListener to set a location to the player***
 		class Addplayer implements ActionListener{
 
 			@Override
@@ -98,6 +109,7 @@ public class gameBoard extends JFrame {
 				ImageBoard.setPlayer("player");
 			}
 		}
+		//***ActionListener to run the game auto ***
 		class auto implements ActionListener{
 
 			@Override

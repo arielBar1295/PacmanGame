@@ -19,6 +19,11 @@ import Maps.Convert;
 import Robot.Play;
 import types.Game;
 
+/**
+ * This class represents the image background, responsible for the game 
+ * @author moshe and ariel
+ *
+ */
 public class ImageBoard extends JPanel implements MouseListener {
 	public BufferedImage myImage;
 
@@ -39,8 +44,9 @@ public class ImageBoard extends JPanel implements MouseListener {
 
 
 	public boolean threadFlag=false;
-
-	public ImageBoard() {
+	// Constructor 
+	public ImageBoard() 
+	{
 		try {
 			myImage = ImageIO.read(new File("image.png"));
 
@@ -52,11 +58,12 @@ public class ImageBoard extends JPanel implements MouseListener {
 		this.m=new MyCoords();
 	}
 	public void paint (Graphics g) {
+		//****print the image****
 		int w = this.getWidth();
 		int h = this.getHeight();
 		g.drawImage(myImage, 0, 0, w, h, this);	
 		if (this.flag) {
-
+			//paint the packman ,box ,ghost  and fruit 
 			for(int i=0;i<game.getPackman().size();i++) {
 				int r = 20;
 				Point3D pX=c.conToPix(game.getPackman().get(i).getP(), this.getWidth(), this.getHeight());
@@ -99,6 +106,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 
 			}
 			if(playerPrint) {
+				//print the player
 				int r = 35;
 				Point3D pX=c.conToPix(game.getPlayerP().getP(), this.getWidth(), this.getHeight());
 				double x =pX.x() - (r / 2);
@@ -109,6 +117,10 @@ public class ImageBoard extends JPanel implements MouseListener {
 			}
 		}
 	}
+	/**
+	 * this function load the game
+	 * @param file_name the csv to load
+	 */
 	public void addFile(String file_name) {
 		play1 = new Play(file_name);
 		game=new Game(play1);
@@ -116,6 +128,9 @@ public class ImageBoard extends JPanel implements MouseListener {
 		repaint();
 
 	}
+	/**
+	 * this function run the game step by step
+	 */
 	public void runStep() {
 		play1.setInitLocation(game.getPlayerP().getP().y(),game.getPlayerP().getP().x());
 		play1.setIDs(307967992,313383259);
@@ -153,7 +168,7 @@ public class ImageBoard extends JPanel implements MouseListener {
 		}
 		//auto run
 		if(autoFlag==2) {
-           //for creating only 1 thread.
+			//for creating only 1 thread.
 			if(threadFlag) {
 				m1=new moveThread(this,game,play1,e);
 				m1.start();
@@ -189,6 +204,9 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void setPlayer(String player) {
 		this.player = player;
 	}
+	/**
+	 * this function repaint the game.
+	 */
 	public void update() {
 		repaint();
 	}
@@ -198,10 +216,12 @@ public class ImageBoard extends JPanel implements MouseListener {
 	public void setPointclicked(Point3D pointclicked) {
 		this.pointclicked = pointclicked;
 	}
+	/**
+	 *this function start the algorithm 
+	 */
 	public void startAlgo() {
 		//locating the packman on the first fruit.
 		Point3D pointpackman=game.getFruit().get(0).getP();
-		
 		pointpackman=m.add(pointpackman, new Point3D(1,1,0));
 		play1.setInitLocation(pointpackman.y(), pointpackman.x());
 		game.update(play1);
@@ -209,8 +229,11 @@ public class ImageBoard extends JPanel implements MouseListener {
 		repaint();
 		algoThread t=new algoThread(this,game,play1);
 		t.start();
-		
+
 	}
+	/**
+	 * this function clear the game.
+	 */
 	public void clear() {
 		game.getBox().removeAll(game.getBox());
 		game.getFruit().removeAll(game.getFruit());

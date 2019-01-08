@@ -1,12 +1,16 @@
 package Algo;
-// Java program to print BFS traversal from a given source vertex. 
-// BFS(int s) traverses vertices reachable from s. 
+
 import java.io.*; 
 import java.util.*; 
   
-// This class represents a directed graph using adjacency list 
-// representation 
+
+
  
+/**
+ *  This class represents a directed graph using adjacency list 
+ * @author moshe and ariel
+ *
+ */
 public class graph {
 
 
@@ -30,11 +34,15 @@ public class graph {
 			this.adj = adj;
 		}
 
-		// Function to add an edge into the graph 
+		
+		/**
+		 * Function to add an edge into the graph 
+		 * @param v The current vertex.
+		 * @param w the adjacency to add.
+		 */
 	    void addEdge(int v,int w) 
 	    { 
 	    	if(!adj[v].contains(w)) {
-	    	//System.out.println(v+" "+w);	
 	        adj[v].add(w); 
 	    	}
 	    } 
