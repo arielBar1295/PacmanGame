@@ -125,7 +125,7 @@ public class Game {
 	}
 	/**
 	 * remove the packman ,fruit and box array and update them to the new location
-	 * @param _play1
+	 * @param _play1 represent the server.
 	 */
 	public void update(Play _play1) {
 		packman.removeAll(packman);

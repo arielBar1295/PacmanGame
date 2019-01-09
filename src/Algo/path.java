@@ -184,6 +184,9 @@ public class path {
 	}
 	/**
 	 * the function building the graph in order to call the dijkstra graph
+	 * @param g is the temp graph.
+	 * @param ad is the ArrayList of the adj elements.
+	 * @return a distance object including the the path by dijkstra.
 	 */
 	public distance dijkstra(graph g, ArrayList<adj>ad) {
 		String source=Integer.toString(ad.get(0).getId());

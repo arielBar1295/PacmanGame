@@ -27,10 +27,10 @@ public class Convert {
    }
    /**
     * the function normalize the points ,means after normalization the points will be between 0-1
-    * @param value
-    * @param min 
-    * @param max
-    * @return
+    * @param value to normalize.
+    * @param min value
+    * @param max value
+    * @return the normalization.
     */
    public static double normalize(double value, double min, double max) {
 	    return Math.abs((value - min) / (max - min));
@@ -38,6 +38,8 @@ public class Convert {
    /**
     * the function converts pixels to coordinates 
     * @param p is the point in pixel  
+    * @param width is the width of the image
+    * @param height is the height of the image.
     * @return a new point in coordinates.
     */
    public Point3D pixToCo(Point3D p,double width,double height) {
@@ -67,6 +69,8 @@ public class Convert {
    /**
     * the function converts a coordinates into pixels.
     * @param p is the point in coordinates
+    * @param width is the width of the image.
+    * @param height is the height of the image.
     * @return a new point in pixels.
     */
    public Point3D conToPix(Point3D p,double width,double height) {
