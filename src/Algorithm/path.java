@@ -1,4 +1,4 @@
-package Algo;
+package Algorithm;
 
 import Geom.Point3D;
 import Maps.Convert;

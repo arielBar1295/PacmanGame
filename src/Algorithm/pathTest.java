@@ -1,4 +1,4 @@
-package Algo;
+package Algorithm;
 
 import static org.junit.jupiter.api.Assertions.*;
 

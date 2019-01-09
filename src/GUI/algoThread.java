@@ -2,8 +2,8 @@ package GUI;
 
 import java.awt.event.MouseEvent;
 
-import Algo.distance;
-import Algo.path;
+import Algorithm.distance;
+import Algorithm.path;
 import Coords.MyCoords;
 import Geom.Point3D;
 import Maps.Convert;
