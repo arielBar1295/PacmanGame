@@ -12,6 +12,7 @@ import java.sql.Statement;
 public class readSQL {
 /**
  * This function calculating the overall average and our average in all games.
+ * our best score for game number 8 is:20 points.
  */
 	public void getSqlresulte(){
 		String jdbcUrl="jdbc:mysql://ariel-oop.xyz:3306/oop";

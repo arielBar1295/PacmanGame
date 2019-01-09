@@ -8,6 +8,7 @@ import Coords.MyCoords;
 import Geom.Point3D;
 import Maps.Convert;
 import Robot.Play;
+import SQL.readSQL;
 /**
  * this class represents the automatic  running. 
  * the class using thread and the server to move the element on the board by clicking .
@@ -65,7 +66,10 @@ public class moveThread extends Thread{
 			}
 			System.out.println(play.getStatistics());
 		}
-	
+	System.out.println("***final statistics***\n"+play.getStatistics());
+	 System.out.println("**********sql resulte**********");
+	 readSQL sql=new readSQL();
+	 sql.getSqlresulte();
 	}
 
 }
