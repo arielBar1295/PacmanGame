@@ -12,6 +12,7 @@ public class Ghost {
 	private double speed;
 	private double raduis;
 	/**
+	 * Constructor
 	 * @param _id ghost id 
 	 * @param _speed ghost speed
 	 * @param _p ghost point location

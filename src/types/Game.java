@@ -1,23 +1,26 @@
 package types;
 
 import java.util.ArrayList;
-
 import Coords.MyCoords;
 import Geom.Point3D;
 import Robot.Play;
-
-
-
+/**
+ * This class represent a complete game,including a collection of packman ,fruit ,ghost ,box and player .
+ * @author moshe and ariel
+ *
+ */
 public class Game {
-	private int counter=0;// check if the box init 
 	private ArrayList<Packman> packman;
 	private ArrayList<Fruit> fruit;
 	private ArrayList<Box> box;
 	private ArrayList<Ghost> ghost;
 	private Play play1;
 	private MyCoords m;
-
 	private Packman playerP;
+	/**
+	 * Constructor
+	 * @param _play1 represent the server
+	 */
 	public Game(Play _play1) {
 		this.play1=_play1;
 		this.m=new MyCoords();
@@ -26,6 +29,7 @@ public class Game {
 		this.ghost=new ArrayList<Ghost>();
 		this.fruit= new ArrayList<Fruit>();
 		this.playerP=new Packman();
+		//init box data ,done only one time
 		for (int i = 0; i < this.play1.getBoard().size(); i++) {
 			String[] s=play1.getBoard().get(i).split(",");
 			if(s[0].equals("B")) {
@@ -119,6 +123,10 @@ public class Game {
 	public void setGhost(ArrayList<Ghost> ghost) {
 		this.ghost = ghost;
 	}
+	/**
+	 * remove the packman ,fruit and box array and update them to the new location
+	 * @param _play1
+	 */
 	public void update(Play _play1) {
 		packman.removeAll(packman);
 		fruit.removeAll(fruit);
@@ -126,6 +134,10 @@ public class Game {
 		ghost.removeAll(ghost);
 		init(_play1.getBoard());
 	}
+	/**
+	 * this function calculate the closest fruit to the player
+	 * @return the closest fruit
+	 */
 	public Fruit closestF() {
 		Fruit fMin=this.getFruit().get(0);
 		double disMin=m.distance3d(this.getPlayerP().getP(), this.getFruit().get(0).getP());
