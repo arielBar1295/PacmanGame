@@ -39,7 +39,7 @@ public class moveThread extends Thread{
 		image.threadFlag=false;
 		//setting the player location.
 		play.setInitLocation(game.getPlayerP().getP().y(), game.getPlayerP().getP().x());
-		play.setIDs(307967992,313383259);
+		play.setIDs(313383259,307967992);
 		play.start();
 		double [] e=new double[3];
 		while(play.isRuning())
